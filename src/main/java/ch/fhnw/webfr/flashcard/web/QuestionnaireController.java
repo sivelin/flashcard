@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 //import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,23 +26,13 @@ public class QuestionnaireController {
     private QuestionnaireRepository questionnaireRepository;
 
     @RequestMapping(method = RequestMethod.GET)
-    public void findAll(HttpServletResponse response, HttpServletRequest request) throws IOException {
+    public String findAll(Model model) {
 
         List<Questionnaire> questionnaires = questionnaireRepository.findAll();
 
-        PrintWriter writer = response.getWriter();
-        writer.append("<html><head><title>Example</title></head><body>");
-        writer.append("<h3>Fragebögen</h3>");
+        model.addAttribute("questionnaires", questionnaires);
 
-        for (Questionnaire questionnaire : questionnaires) {
-
-            String url = request.getContextPath() + request.getServletPath();
-            url = url + "/" + questionnaire.getId().toString();
-
-            writer.append("<p><a href='" + response.encodeURL(url) + "'>" + questionnaire.getTitle() + "</a></p>");
-        }
-
-        writer.append("</body></html>");
+        return "questionnaires/list";
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -49,7 +40,7 @@ public class QuestionnaireController {
             throws IOException {
 
         Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
-            
+        
 		PrintWriter writer = response.getWriter();
 		writer.append("<html lang='en'><head><title>Example</title></head><body>");
 		writer.append("<h2>Questionnaire</h2>");

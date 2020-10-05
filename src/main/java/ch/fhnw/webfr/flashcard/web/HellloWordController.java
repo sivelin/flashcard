@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import ch.fhnw.webfr.flashcard.persistence.QuestionnaireRepository;
 
 @Controller
-@RequestMapping("/hello")
+@RequestMapping("/hello") // könnte durch value im RequestMapping ersetzt werden
 public class HellloWordController {
 
     @Autowired
     private QuestionnaireRepository questionnaireRepository;
 
+
     @RequestMapping(method = RequestMethod.GET)
-    @ResponseBody
+    @ResponseBody // Print Writer kann vermieden werden, dank ResponseBody (Konverter von Spring wird zur Verfügung gestellt)
+    // ResponseBody versicht in dem vom Browser gewünschten Typ umzuwandeln, wenn nicht passt -> Error.
     public String hello(@RequestParam("name") String name) {
         return "Hello " + name + "<br> You have " + questionnaireRepository.count() + " questionnaires in your repo.";
     }
