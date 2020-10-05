@@ -27,36 +27,15 @@ public class QuestionnaireController {
 
     @RequestMapping(method = RequestMethod.GET)
     public String findAll(Model model) {
-
         List<Questionnaire> questionnaires = questionnaireRepository.findAll();
-
         model.addAttribute("questionnaires", questionnaires);
-
         return "questionnaires/list";
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public void findById(@PathVariable String id, HttpServletResponse response, HttpServletRequest request)
-            throws IOException {
-
-        Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
-        
-		PrintWriter writer = response.getWriter();
-		writer.append("<html lang='en'><head><title>Example</title></head><body>");
-		writer.append("<h2>Questionnaire</h2>");
-		
-		if (questionnaire.isPresent()) {
-			
-			writer.append("<h3>" + questionnaire.get().getTitle() + "</h3>");
-			writer.append("<p>" + questionnaire.get().getDescription() + "</p>");	
-			
-		} else {
-			
-			writer.append("<p><em>no questionnaire found</em></p>");
-		}
-		
-		writer.append("<a href='" + request.getContextPath() + "/questionnaires'>Back</a>");
-		
-		writer.append("</body></html>");
-    }
+	@RequestMapping(value="/{id}", method = RequestMethod.GET)
+	public String findById(@PathVariable String id, Model model) {
+		Optional<Questionnaire> questionnaire = questionnaireRepository.findById(id);
+		model.addAttribute("questionnaire", questionnaire.get());
+		return "questionnaires/show";
+	}
 }
