@@ -1,12 +1,8 @@
 package ch.fhnw.webfr.flashcard.web;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.List;
 import java.util.Optional;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 import ch.fhnw.webfr.flashcard.persistence.QuestionnaireRepository;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -40,11 +34,16 @@ public class QuestionnaireController {
 		model.addAttribute("questionnaire", questionnaire.get());
 		return "questionnaires/show";
     }
-    
-    @PostMapping(value=".../questionnaires?form")
-    public Questionnaire postMethodName(@RequestBody Questionnaire entity) {
-        //TODO: process POST request
-        
-        return entity;
+ 
+	@RequestMapping(method = RequestMethod.GET, params= {"form"})
+	public String getForm(Model model) {
+		model.addAttribute("questionnaire", new Questionnaire());
+		return "questionnaires/create";
+    }
+
+	@RequestMapping(method = RequestMethod.POST)
+	public String create(Questionnaire questionnaire) {
+        questionnaireRepository.save(questionnaire);
+        return "redirect:questionnaires";
     }
 }
