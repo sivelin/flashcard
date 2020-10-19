@@ -6,8 +6,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document(collection="questionnaires")    //#1: Diese Annotation definiert diese Klasse als MongoDB Dokument in der genannten Kollektion
 public class Questionnaire {
     @Id                 // #2: Mit dieser Annotation wird folgende Property als ID festgelegt
-    private String id;  // #3: Die ID einer MongoDB ist immer vom Typ String
-    private String  title;
+	private String id;  // #3: Die ID einer MongoDB ist immer vom Typ String
+	//@Size(min=2, max=10)
+	private String  title;
+	//@Size()
     private String description;
     
     public void setId(String id) {
