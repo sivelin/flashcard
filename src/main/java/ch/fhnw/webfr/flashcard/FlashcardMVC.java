@@ -1,5 +1,6 @@
 package ch.fhnw.webfr.flashcard;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -11,8 +12,8 @@ public class FlashcardMVC {
 
 	public static void main(String[] args) {
 		SpringApplication.run(FlashcardMVC.class, args);
+		
 	}
-
 	@Bean
 	public ValidatingMongoEventListener validatingMongoEventListener() {
 		return new ValidatingMongoEventListener(validator());
@@ -22,5 +23,5 @@ public class FlashcardMVC {
 	public LocalValidatorFactoryBean validator() {
 		return new LocalValidatorFactoryBean();
 	}
-
 }
+

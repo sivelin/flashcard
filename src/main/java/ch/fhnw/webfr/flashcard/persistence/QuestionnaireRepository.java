@@ -6,6 +6,13 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import ch.fhnw.webfr.flashcard.domain.Questionnaire;
 
-public interface QuestionnaireRepository extends MongoRepository<Questionnaire, String> { // #1: Das QuestionnaireRepository ist nun ein MongoRepository. Dabei muss die Entität, hier Quesionnaire, und der Typ der ID, hier String, angegeben werden.
-	List<Questionnaire> findByTitle(String title);    // #2: Das MongoRepository stellt alle elementaren CRUD-Operation automatisch bereit. Hier wird eine neue Methode definiert, um Questionnaire-Entitäten nach dem Titel suchen zu können.
+public interface QuestionnaireRepository extends MongoRepository<Questionnaire, String> {
+
+	/**
+	 * Von uns hinzugefügte Query-Methode. Existiert nicht im Mongo-DB interface.
+	 * 
+	 * @param title Der Questionnaire Titel
+	 * @return  Eine Liste mit Questionnaires, die exakt diesen Titel haben
+	 */
+	public List<Questionnaire> findByTitle(String title);
 }

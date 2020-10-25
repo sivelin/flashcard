@@ -27,6 +27,17 @@
                                 <a class="btn btn-secondary" th:href="@{/questionnaires} + '/' + ${questionnaire.id}">Show</a>
 							</div>
 						</td>
+						<td>
+							<form action="#" th:action="@{/questionnaires} + '/' + ${questionnaire.id}" method="POST" class="float-right">
+								<input type="hidden" name="_method" value="DELETE"/>
+								<button class="btn btn-error float-right" type="submit">Delete</button>
+							</form>
+						</td>
+						<td>
+							<a class="btn btn-success float-right" th:href="@{/questionnaires} + '/' + ${questionnaire.id} + '?form'">
+								Update
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
