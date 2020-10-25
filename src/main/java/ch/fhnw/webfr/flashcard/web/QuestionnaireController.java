@@ -78,7 +78,7 @@ public class QuestionnaireController {
 		}
 	}
 
-	@RequestMapping(value="/{id}", method = RequestMethod.GET, params = { "form" })
+	@RequestMapping(value="/{id}", method = RequestMethod.GET, params = { "update-form" })
 	public String getUpdateForm(@PathVariable String id, Model model) {
 
 		if(questionnaireRepository.existsById(id)){
@@ -91,16 +91,24 @@ public class QuestionnaireController {
 		return "404";
 	}
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public String update(@Valid Questionnaire questionnaire, BindingResult result) {
+	@RequestMapping(value="/{id}", method = RequestMethod.PUT)
+	public String update(@PathVariable String id, @Valid Questionnaire questionnaire, BindingResult result) {
 		if (result.hasErrors()) {
-			return "questionnaires/create";
-		} else {
-			questionnaireRepository.save(questionnaire);
-			
-			return "redirect:questionnaires";
+			return "questionnaires/update";
+		}
+		if(questionnaireRepository.existsById(id)){
+			Optional<Questionnaire> q = questionnaireRepository.findById(id);
+
+			q.get().setTitle(questionnaire.getTitle());
+			q.get().setDescription(questionnaire.getDescription());
+
+			questionnaireRepository.save(q.get());
+
+			return "redirect:/questionnaires";
 		
 		}
+		return "404";
+
 	}
 
 }
