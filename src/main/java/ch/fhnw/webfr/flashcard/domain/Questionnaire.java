@@ -1,5 +1,6 @@
 package ch.fhnw.webfr.flashcard.domain;
 
+import javax.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +10,6 @@ public class Questionnaire {
 	private String id;  // #3: Die ID einer MongoDB ist immer vom Typ String
 	//@Size(min=2, max=10)
 	private String  title;
-	//@Size()
     private String description;
     
     public void setId(String id) {

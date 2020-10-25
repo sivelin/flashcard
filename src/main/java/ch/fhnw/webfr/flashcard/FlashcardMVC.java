@@ -13,14 +13,14 @@ public class FlashcardMVC {
 		SpringApplication.run(FlashcardMVC.class, args);
 	}
 
-	//@Bean
-	//public ValidatingMongoEventListener validatingMongoEventListener() {
-	//	return new ValidatingMongoEventListener(validator());
-	//}
+	@Bean
+	public ValidatingMongoEventListener validatingMongoEventListener() {
+		return new ValidatingMongoEventListener(validator());
+	}
 
-	//@Bean
-	//public LocalValidatorFactoryBean validator() {
-	//	return new LocalValidatorFactoryBean();
-	//}
+	@Bean
+	public LocalValidatorFactoryBean validator() {
+		return new LocalValidatorFactoryBean();
+	}
 
 }
