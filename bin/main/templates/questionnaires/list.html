@@ -28,13 +28,15 @@
 							</div>
 						</td>
 						<td>
-							<form action="#" th:action="@{/questionnaires} + '/' + ${questionnaire.id}" method="POST" class="float-right">
+							<form action="#" th:action="@{/questionnaires} + '/' + ${questionnaire.id}" 
+							method="POST" class="float-right">
 								<input type="hidden" name="_method" value="DELETE"/>
 								<button class="btn btn-error float-right" type="submit">Delete</button>
 							</form>
 						</td>
 						<td>
-							<a class="btn btn-success float-right" th:href="@{/questionnaires} + '/' + ${questionnaire.id} + '?update-form'">
+							<a class="btn btn-success float-right" 
+							th:href="@{/questionnaires} + '/' + ${questionnaire.id} + '?update-form'">
 								Update
 							</a>
 						</td>
